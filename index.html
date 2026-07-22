@@ -5,299 +5,49 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
 <meta name="theme-color" content="#f7f2e8">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Between Us">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-192.png">
 <title>Between Us • Family</title>
 <style>
-:root {
-  --bg:#f7f2e8; --paper:#fffdf8; --ink:#33413c; --muted:#7c8a84;
-  --accent:#d77d6f; --accent2:#d7a94b; --green:#9fc6ad; --violet:#b8abd0;
-  --blue:#a9cbd2; --peach:#f1b99f; --line:rgba(51,65,60,.12); --glass:rgba(255,255,255,.62);
-}
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Avenir Next","Segoe UI",sans-serif}
-body{min-height:100vh;min-height:100dvh;background:
-radial-gradient(circle at 8% 2%,rgba(241,185,159,.34),transparent 34%),
-radial-gradient(circle at 96% 98%,rgba(169,203,210,.32),transparent 38%),
-radial-gradient(circle at 80% 10%,rgba(159,198,173,.18),transparent 28%),var(--bg)}
-button,input,textarea,select{font:inherit}
-button{cursor:pointer}
-.app{max-width:560px;margin:auto;min-height:100dvh;padding:calc(env(safe-area-inset-top) + 14px) 18px calc(env(safe-area-inset-bottom) + 24px)}
-.topbar{display:flex;justify-content:space-between;align-items:center;gap:12px}
-.brand{font-size:13px;letter-spacing:.22em;text-transform:uppercase;font-weight:800}
-.iconbtn{border:1px solid var(--line);background:var(--glass);color:var(--ink);width:44px;height:44px;border-radius:50%;font-size:20px}
-.hero{padding:34px 2px 22px}
-.kicker{font-size:13px;text-transform:uppercase;letter-spacing:.18em;color:#b36f62;font-weight:800}
-h1{font-size:48px;line-height:.92;margin:8px 0 14px;letter-spacing:-.05em}
-.hero p{margin:0;color:#66756f;line-height:1.45;font-size:16px}
-.deckgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px}
-.deck{border:0;text-align:left;min-height:126px;border-radius:22px;padding:16px;display:flex;flex-direction:column;justify-content:space-between;background:var(--paper);color:var(--ink);box-shadow:0 12px 30px rgba(0,0,0,.18);transform:translateZ(0)}
-.deck:active{transform:scale(.98)}
-.deck .emoji{font-size:28px} .deck .name{font-weight:850;font-size:18px;line-height:1.05} .deck .count{font-size:12px;opacity:.6}
-.deck:nth-child(1){background:#f7d8ca}
-.deck:nth-child(2){background:#cfe3dc}
-.deck:nth-child(3){background:#d7e8eb}
-.deck:nth-child(4){background:#f4e3aa}
-.deck:nth-child(5){background:#ddd3e9}
-.deck:nth-child(6){background:#efc7c0}
-.view{display:none} .view.active{display:block}
-.playhead{display:flex;justify-content:space-between;align-items:center;margin:18px 0}
-.back{background:none;border:0;color:var(--ink);padding:8px 0;font-weight:750}
-.progress{font-size:12px;color:var(--muted)}
-.cardwrap{perspective:1100px;margin:14px 0 18px}
-.card{position:relative;min-height:470px;background:#fffdf8;color:var(--ink);border-radius:28px;padding:26px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 24px 60px rgba(72,85,78,.16);overflow:hidden;transition:transform .24s ease,opacity .24s ease}
-.card::before{content:"";position:absolute;width:180px;height:180px;border:2px solid rgba(32,26,23,.08);border-radius:50%;right:-70px;top:-80px}
-.card.out{transform:translateX(-35px) rotate(-3deg);opacity:0}
-.card .category{font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:850;opacity:.5}
-.question{font-size:34px;line-height:1.04;letter-spacing:-.035em;font-weight:850;margin:auto 0;padding:24px 0}
-.cardfoot{display:flex;justify-content:space-between;align-items:end;gap:12px}
-.cardnum{font-size:12px;opacity:.45} .promptnote{font-size:12px;max-width:65%;opacity:.55;text-align:right}
-.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.primary,.secondary{min-height:54px;border-radius:16px;font-weight:800;border:0;padding:0 16px}
-.primary{background:#d77d6f;color:white} .secondary{background:rgba(255,255,255,.68);border:1px solid var(--line);color:var(--ink)}
-.chips{display:flex;gap:8px;overflow:auto;padding:10px 0 2px;scrollbar-width:none}
-.chip{white-space:nowrap;border:1px solid var(--line);background:rgba(255,255,255,.7);color:var(--ink);border-radius:999px;padding:10px 13px;font-size:13px;font-weight:700}
-.rule{margin-top:14px;padding:14px;border:1px solid var(--line);background:var(--glass);border-radius:16px;color:#66756f;font-size:13px;line-height:1.4}
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.66);backdrop-filter:blur(12px);display:none;align-items:flex-end;z-index:20}
-.modal.open{display:flex}
-.sheet{background:#fffaf2;color:var(--ink);width:100%;max-width:620px;margin:auto;border-radius:28px 28px 0 0;padding:20px 18px calc(env(safe-area-inset-bottom) + 22px);max-height:88dvh;overflow:auto}
-.sheethead{display:flex;justify-content:space-between;align-items:center;position:sticky;top:-20px;background:#fffaf2;padding:4px 0 12px;z-index:2}
-.sheet h2{margin:0;font-size:28px;letter-spacing:-.03em}
-.field{margin:14px 0} label{display:block;font-size:12px;color:var(--muted);margin-bottom:7px;text-transform:uppercase;letter-spacing:.12em;font-weight:800}
-input,textarea,select{width:100%;border:1px solid var(--line);background:#fffdf8;color:var(--ink);border-radius:14px;padding:13px}
-textarea{min-height:100px;resize:vertical}
-.list{display:flex;flex-direction:column;gap:8px;margin-top:14px}
-.row{border:1px solid var(--line);border-radius:14px;padding:12px;background:rgba(255,255,255,.035)}
-.rowtext{font-size:14px;line-height:1.35;margin-bottom:10px}
-.rowactions{display:flex;gap:8px}
-.small{border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:10px;padding:8px 10px;font-size:12px;font-weight:700}
-.danger{color:#ff9b8d}
-.toolbar{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:14px 0}
-.notice{font-size:12px;color:var(--muted);line-height:1.4}
-.toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom) + 24px);transform:translateX(-50%) translateY(20px);background:#000;color:#fff;padding:11px 16px;border-radius:999px;opacity:0;pointer-events:none;transition:.2s;z-index:50;font-size:13px}
-.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-@media (max-width:380px){h1{font-size:42px}.question{font-size:29px}.card{min-height:420px}}
-</style>
-</head>
-<body>
+:root{--bg:#f7f2e8;--paper:#fffdf8;--ink:#33413c;--muted:#7c8a84;--coral:#f7d8ca;--sage:#cfe3dc;--blue:#d7e8eb;--gold:#f4e3aa;--lav:#ddd3e9;--rose:#efc7c0;--accent:#d77d6f;--line:rgba(51,65,60,.12);--shadow:0 18px 45px rgba(72,85,78,.12)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Avenir Next","Segoe UI",sans-serif}body{min-height:100vh;min-height:100dvh;background:radial-gradient(circle at 8% 2%,rgba(241,185,159,.34),transparent 34%),radial-gradient(circle at 96% 98%,rgba(169,203,210,.32),transparent 38%),radial-gradient(circle at 80% 10%,rgba(159,198,173,.18),transparent 28%),var(--bg)}
+button,input,textarea,select{font:inherit}button{cursor:pointer}.app{max-width:600px;margin:auto;min-height:100dvh;padding:calc(env(safe-area-inset-top) + 14px) 18px calc(env(safe-area-inset-bottom) + 28px)}.view{display:none}.view.active{display:block}.topbar{display:flex;justify-content:space-between;align-items:center;gap:12px}.brand{font-size:13px;letter-spacing:.22em;text-transform:uppercase;font-weight:850}.iconbtn{border:1px solid var(--line);background:rgba(255,255,255,.72);color:var(--ink);width:44px;height:44px;border-radius:50%;display:grid;place-items:center;box-shadow:0 8px 18px rgba(72,85,78,.08)}
+.hero{padding:34px 2px 20px}.kicker{font-size:13px;text-transform:uppercase;letter-spacing:.18em;color:#b36f62;font-weight:850}h1{font-size:48px;line-height:.92;margin:8px 0 14px;letter-spacing:-.05em}.hero p{margin:0;color:#66756f;line-height:1.45;font-size:16px}.modebar{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0 4px}.modebtn{border:1px solid var(--line);background:rgba(255,255,255,.62);color:var(--ink);border-radius:16px;padding:13px 14px;text-align:left;box-shadow:0 8px 20px rgba(72,85,78,.07)}.modebtn strong{display:block;font-size:14px}.modebtn span{display:block;font-size:11px;color:var(--muted);margin-top:2px}.modebtn.primarymode{background:#f8e6df}
+.deckgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px;margin-bottom:20px}.deck{border:0;text-align:left;min-height:130px;border-radius:22px;padding:16px;display:flex;flex-direction:column;justify-content:space-between;color:var(--ink);box-shadow:var(--shadow);transform:translateY(0) scale(1);transition:transform .16s ease,box-shadow .16s ease}.deck:active{transform:translateY(2px) scale(.985);box-shadow:0 9px 20px rgba(72,85,78,.11)}.deck .name{font-weight:850;font-size:18px;line-height:1.05}.deck .count{font-size:12px;opacity:.58;margin-top:4px}.deckicon{width:38px;height:38px;display:block}.deckicon svg{width:100%;height:100%;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.daughter{background:var(--coral)}.son{background:var(--sage)}.siblings{background:var(--blue)}.family{background:var(--gold)}.funny{background:var(--lav)}.deep{background:var(--rose)}.footerhint{text-align:center;color:var(--muted);font-size:12px;padding:4px 10px 0}
+.playhead{display:flex;justify-content:space-between;align-items:center;margin:18px 0}.back{background:none;border:0;color:var(--ink);padding:8px 0;font-weight:800}.progress{font-size:12px;color:var(--muted)}.cardwrap{perspective:1200px;margin:12px 0 18px}.card{position:relative;min-height:480px;color:var(--ink);border-radius:30px;padding:26px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 26px 60px rgba(72,85,78,.16);overflow:hidden;transform-origin:center bottom;animation:deal .42s cubic-bezier(.2,.8,.2,1)}.card::before,.card::after{content:"";position:absolute;border:2px solid rgba(51,65,60,.08);border-radius:50%}.card::before{width:190px;height:190px;right:-70px;top:-82px}.card::after{width:110px;height:110px;left:-44px;bottom:-40px}.card.out{animation:discard .23s ease forwards}@keyframes deal{0%{opacity:0;transform:translateY(32px) rotateX(-9deg) scale(.96)}100%{opacity:1;transform:none}}@keyframes discard{to{opacity:0;transform:translateX(-50px) rotate(-4deg) scale(.97)}}.card .category{font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:850;opacity:.55}.question{font-size:35px;line-height:1.04;letter-spacing:-.035em;font-weight:850;margin:auto 0;padding:24px 0;position:relative;z-index:1}.cardfoot{display:flex;justify-content:space-between;align-items:end;gap:12px;position:relative;z-index:1}.cardnum{font-size:12px;opacity:.45}.promptnote{font-size:12px;max-width:70%;opacity:.58;text-align:right}.actions{display:grid;grid-template-columns:1fr 1.2fr;gap:10px}.primary,.secondary{min-height:54px;border-radius:16px;font-weight:850;border:0;padding:0 16px}.primary{background:var(--accent);color:white;box-shadow:0 10px 20px rgba(215,125,111,.2)}.secondary{background:rgba(255,255,255,.72);border:1px solid var(--line);color:var(--ink)}.chips{display:flex;gap:8px;overflow:auto;padding:10px 0 2px;scrollbar-width:none}.chip{white-space:nowrap;border:1px solid var(--line);background:rgba(255,255,255,.72);color:var(--ink);border-radius:999px;padding:10px 13px;font-size:13px;font-weight:750}.rule{margin-top:14px;padding:14px;border:1px solid var(--line);background:rgba(255,255,255,.56);border-radius:16px;color:#66756f;font-size:13px;line-height:1.4}
+.modal{position:fixed;inset:0;background:rgba(40,48,44,.38);backdrop-filter:blur(12px);display:none;align-items:flex-end;z-index:20}.modal.open{display:flex}.sheet{background:#fffaf2;color:var(--ink);width:100%;max-width:620px;margin:auto;border-radius:28px 28px 0 0;padding:20px 18px calc(env(safe-area-inset-bottom) + 22px);max-height:90dvh;overflow:auto}.sheethead{display:flex;justify-content:space-between;align-items:center;position:sticky;top:-20px;background:#fffaf2;padding:4px 0 12px;z-index:2}.sheet h2{margin:0;font-size:28px;letter-spacing:-.03em}.field{margin:14px 0}label{display:block;font-size:12px;color:var(--muted);margin-bottom:7px;text-transform:uppercase;letter-spacing:.12em;font-weight:800}input,textarea,select{width:100%;border:1px solid var(--line);background:#fffdf8;color:var(--ink);border-radius:14px;padding:13px}textarea{min-height:100px;resize:vertical}.list{display:flex;flex-direction:column;gap:8px;margin-top:14px}.row{border:1px solid var(--line);border-radius:14px;padding:12px;background:rgba(255,255,255,.5)}.rowtext{font-size:14px;line-height:1.35;margin-bottom:10px}.rowactions{display:flex;gap:8px}.small{border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:10px;padding:8px 10px;font-size:12px;font-weight:700}.danger{color:#c66056}.toolbar{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:14px 0}.notice{font-size:12px;color:var(--muted);line-height:1.4}
+.onboard{position:fixed;inset:0;background:rgba(45,54,50,.38);backdrop-filter:blur(12px);z-index:60;display:none;align-items:center;justify-content:center;padding:22px}.onboard.open{display:flex}.onboardcard{width:min(100%,480px);background:#fffaf2;border-radius:28px;padding:24px;box-shadow:0 30px 80px rgba(57,70,64,.22)}.onboardcard h2{font-size:34px;line-height:1;margin:4px 0 12px;letter-spacing:-.04em}.onboardcard p{color:#66756f;line-height:1.45}.rules{display:grid;gap:9px;margin:18px 0}.rulerow{display:grid;grid-template-columns:42px 1fr;gap:11px;align-items:start}.rulebadge{width:42px;height:42px;border-radius:14px;background:#f4e3aa;display:grid;place-items:center;font-weight:900}.rulerow strong{display:block;font-size:14px}.rulerow span{display:block;font-size:12px;color:var(--muted);margin-top:2px;line-height:1.35}.sessionbar{display:none;gap:8px;margin:8px 0 2px}.sessionbar.show{display:flex}.stage{font-size:11px;border-radius:999px;padding:7px 10px;background:rgba(255,255,255,.68);border:1px solid var(--line);color:var(--muted)}.stage.active{color:var(--ink);background:#f4e3aa;font-weight:800}.toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom) + 24px);transform:translateX(-50%) translateY(20px);background:#26312c;color:#fff;padding:11px 16px;border-radius:999px;opacity:0;pointer-events:none;transition:.2s;z-index:80;font-size:13px}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+@media (min-height:850px){.hero{padding-top:48px}.deckgrid{margin-top:20px}}@media (max-width:380px){h1{font-size:42px}.question{font-size:30px}.card{min-height:425px}}
+</style></head><body>
 <div class="app">
-  <section id="home" class="view active">
-    <div class="topbar">
-      <div class="brand">Between Us</div>
-      <button class="iconbtn" id="settingsBtn" aria-label="Card manager">⚙︎</button>
-    </div>
-    <div class="hero">
-      <div class="kicker">Family Edition</div>
-      <h1>Less small talk.<br>More us.</h1>
-      <p>Pick a deck, take turns, and answer honestly. You can always pass. There is no winning, just finding out something new.</p>
-    </div>
-    <div id="deckgrid" class="deckgrid"></div>
-  </section>
-
-  <section id="play" class="view">
-    <div class="playhead">
-      <button class="back" id="backBtn">← Decks</button>
-      <div class="progress" id="progress"></div>
-    </div>
-    <div class="cardwrap">
-      <article class="card" id="card">
-        <div class="category" id="cat"></div>
-        <div class="question" id="question"></div>
-        <div class="cardfoot"><div class="cardnum" id="cardnum"></div><div class="promptnote" id="promptnote">Listen first. Respond second.</div></div>
-      </article>
-    </div>
-    <div class="actions">
-      <button class="secondary" id="passBtn">PASS</button>
-      <button class="primary" id="nextBtn">NEXT CARD →</button>
-    </div>
-    <div class="chips">
-      <button class="chip" data-special="Flip It">↻ Flip It</button>
-      <button class="chip" data-special="Prove It">◎ Prove It</button>
-      <button class="chip" data-special="Say More">♡ Say More</button>
-    </div>
-    <div class="rule" id="specialRule">Special cards are optional prompts you can use once per turn.</div>
-  </section>
+<section id="home" class="view active"><div class="topbar"><div class="brand">Between Us</div><button class="iconbtn" id="settingsBtn" aria-label="Card manager">⚙︎</button></div><div class="hero"><div class="kicker">Family Edition</div><h1>Less small talk.<br>More us.</h1><p>Pick a deck, take turns, and answer honestly. You can always pass. There is no winning, just finding out something new.</p></div><div class="modebar"><button class="modebtn primarymode" id="sessionBtn"><strong>Start a Session</strong><span>Light → meaningful → deep</span></button><button class="modebtn" id="mixBtn"><strong>Mix It Up</strong><span>Random cards from all decks</span></button></div><div id="deckgrid" class="deckgrid"></div><div class="footerhint">Quick Play: tap any deck to jump straight in.</div></section>
+<section id="play" class="view"><div class="playhead"><button class="back" id="backBtn">← Decks</button><div class="progress" id="progress"></div></div><div class="sessionbar" id="sessionbar"><span class="stage" data-stage="light">Light</span><span class="stage" data-stage="meaningful">Meaningful</span><span class="stage" data-stage="deep">Deep</span></div><div class="cardwrap"><article class="card" id="card"><div class="category" id="cat"></div><div class="question" id="question"></div><div class="cardfoot"><div class="cardnum" id="cardnum"></div><div class="promptnote" id="promptnote">Listen first. Respond second.</div></div></article></div><div class="actions"><button class="secondary" id="passBtn">PASS</button><button class="primary" id="nextBtn">NEXT CARD →</button></div><div class="chips"><button class="chip" data-special="Flip It">↻ Flip It</button><button class="chip" data-special="Prove It">◎ Prove It</button><button class="chip" data-special="Say More">♡ Say More</button></div><div class="rule" id="specialRule">Tap a special prompt when the conversation needs a little more depth.</div></section>
 </div>
-
-<div class="modal" id="manager">
-  <div class="sheet">
-    <div class="sheethead">
-      <h2>Card Manager</h2>
-      <button class="iconbtn" id="closeManager">×</button>
-    </div>
-    <div class="field">
-      <label>Category</label>
-      <select id="manageDeck"></select>
-    </div>
-    <div class="field">
-      <label>Add a card</label>
-      <textarea id="newCard" placeholder="Write a question..."></textarea>
-    </div>
-    <button class="primary" id="addCard" style="width:100%">ADD CARD</button>
-    <div class="toolbar">
-      <button class="secondary" id="newCategory">+ Category</button>
-      <button class="secondary" id="exportBtn">Export</button>
-      <button class="secondary" id="importBtn">Import</button>
-      <button class="secondary" id="resetDeck">Reset Deck</button>
-    </div>
-    <input type="file" id="importFile" accept="application/json" hidden>
-    <div class="notice">Your edits are stored only on this device unless you export a backup.</div>
-    <div id="cardList" class="list"></div>
-  </div>
-</div>
-
+<div class="modal" id="manager"><div class="sheet"><div class="sheethead"><h2>Card Manager</h2><button class="iconbtn" id="closeManager">×</button></div><div class="field"><label>Category</label><select id="manageDeck"></select></div><div class="field"><label>Add a card</label><textarea id="newCard" placeholder="Write a question..."></textarea></div><button class="primary" id="addCard" style="width:100%">ADD CARD</button><div class="toolbar"><button class="secondary" id="newCategory">+ Category</button><button class="secondary" id="exportBtn">Export</button><button class="secondary" id="importBtn">Import</button><button class="secondary" id="resetDeck">Reset Deck</button></div><input type="file" id="importFile" accept="application/json" hidden><div class="notice">Your edits are stored only on this device unless you export a backup.</div><div id="cardList" class="list"></div></div></div>
+<div class="onboard" id="onboard"><div class="onboardcard"><div class="kicker">How to play</div><h2>Be honest.<br>Be kind.</h2><p>One person draws. Everyone listens. Nobody has to answer anything they do not want to answer.</p><div class="rules"><div class="rulerow"><div class="rulebadge">P</div><div><strong>PASS</strong><span>Skip any card. No explanation needed.</span></div></div><div class="rulerow"><div class="rulebadge">↻</div><div><strong>Flip It</strong><span>Answer the question about the other person.</span></div></div><div class="rulerow"><div class="rulebadge">◎</div><div><strong>Prove It</strong><span>Give a real memory or example behind your answer.</span></div></div><div class="rulerow"><div class="rulebadge">♡</div><div><strong>Say More</strong><span>Invite someone to go deeper. They can still pass.</span></div></div></div><button class="primary" id="gotIt" style="width:100%">LET'S PLAY</button></div></div>
 <div class="toast" id="toast"></div>
-
 <script>
 const ORIGINAL = {"Dad ↔ Daughter": ["What is something about me you understand better now than you did a few years ago?", "What is one of your favorite memories of just the two of us?", "What do you think I worry about most when it comes to you?", "What is something you wish I trusted you more with?", "What do you think I don't give myself enough credit for?", "What is something I do that makes you feel loved, even if I don't realize it?", "What is something you wish we did together more often?", "What do you think we have most in common?", "What is one way we're completely different?", "What's something you've learned from me that you actually want to keep?", "What's something you've learned from me that you want to do differently?", "When do you feel most comfortable talking to me?", "When am I hardest to talk to?", "What is something about your life you wish I understood better?", "What do you think I sometimes worry about unnecessarily?", "What is something you think I need to hear from you?", "What is something you need to hear from me more often?", "What's a moment when you remember feeling really proud of me?", "What do you think I was like at your age?", "What do you hope never changes about our relationship?", "As you get older, what do you hope changes about our relationship?", "What is one adventure you want us to have together?", "What's something you hope you'll still call me about when you're 30?", "Finish this sentence: \"Dad, I hope you always know...\""], "Dad ↔ Son": ["What is one of your favorite memories of you and me?", "What do you think we're most alike in?", "What do you think we're most different in?", "What's something you think I'm really good at?", "What's something you're better at than me?", "What's something I taught you without realizing I was teaching you?", "What's something you've taught me?", "What is something you wish we did together more often?", "When do you feel like I understand you best?", "When do you feel like I don't understand you?", "What's something you wish I explained instead of just telling you what to do?", "What is something about being your age that you think I've forgotten?", "What do you think I worry about most for you?", "What's something you wish I worried about less?", "What's something you're proud of that you don't think I notice enough?", "What is something you want to become better at?", "What is something you think I could become better at?", "What's something about adulthood you're looking forward to?", "What's something about adulthood that makes you nervous?", "What's one thing you hope I taught you about being a good man?", "What kind of relationship do you want us to have when you're older?", "What's something you hope we'll still do together 20 years from now?", "If you could relive one day we've spent together, which would you choose?", "Finish this sentence: \"Dad, one thing I want you to understand about me is...\""], "Sibling ↔ Sibling": ["What's your earliest memory of me?", "What is your funniest memory involving the two of us?", "What do I do that annoys you way more than it should?", "What's something I do that always makes you laugh?", "What do you think we're most alike in?", "What's something we're complete opposites about?", "Which one of us would survive longer alone, and why?", "What is something you're better at than me?", "What's something you think I'm better at than you?", "When have you been proud to call me your sibling?", "What's something about me you think other people misunderstand?", "What's something you understand about me that Dad probably doesn't?", "What's something you think I understand about you better than anyone else?", "When have I had your back when you really needed it?", "When do you wish I'd had your back more?", "What's something we've fought about that seems ridiculous now?", "What's something you wish we'd stop fighting about?", "What is one thing you'd change about our relationship?", "What's something you'd never let someone outside our family say about me?", "What do you think our relationship will look like when we're 30 or 40?", "What family tradition should we keep going when we're adults?", "What childhood memory do you hope neither of us ever forgets?", "What's something you appreciate about me but rarely say?", "Finish this sentence: \"No matter what happens, I want you to know...\""], "Whole Family": ["What's the funniest thing that's ever happened to our family?", "What story does our family tell over and over?", "What's a completely normal thing in our house that outsiders might find strange?", "What's our family's unofficial motto?", "Who is most likely to make everyone laugh when things are going badly?", "What is one meal that feels like \"our family\"?", "What is one trip or adventure we should take together?", "What's one ordinary day you wish you could experience again?", "What's something our family is really good at?", "What's something our family could be better at?", "When does our house feel happiest?", "What's something we don't do enough together?", "What's something we've gone through that made us stronger?", "What does this family do that makes you feel safe?", "What's something about our family you hope never changes?", "What's something about our family that probably should change?", "What's a tradition we should start?", "What tradition should we never stop?", "What do you think people outside our family don't understand about us?", "What is something each person brings to this family that nobody else could replace?", "What do you hope holidays at our house look like 20 years from now?", "If our family could preserve one memory forever, what should it be?", "What do you hope future generations of our family know about us?", "Finish this sentence: \"I'm grateful that our family...\""], "Funny / Wildcard": ["Who in the family would survive a zombie apocalypse longest?", "Who would accidentally get everyone killed first?", "Who would you absolutely NOT want as your partner on The Amazing Race?", "Who would be the worst person to share a hotel room with?", "Who would last longest without their phone?", "Who would become famous first, and for what?", "Who is most likely to accidentally become a meme?", "Who would be the easiest person to interrogate?", "Who would you trust most to hide a body? Hypothetically, FBI.", "Who would be the worst getaway driver?", "If Dad were arrested, what would everyone assume he did?", "If our family had a reality show, what would it be called?", "Who would secretly be the audience favorite?", "What phrase does someone in this family say constantly?", "Do your best impression of another family member.", "What's Dad's most \"Dad\" behavior?", "What's the dumbest argument our family has ever had?", "What's something we could put on our family crest?", "Everyone gets $10,000 but must spend it today. What does each person buy?", "You're stranded on an island and can choose only one family member. Who?", "What's one family story that absolutely needs to be told at someone's wedding?", "Give everyone in the family a ridiculous superhero name and power.", "Everyone anonymously points to the favorite child on three.", "Wildcard: Ask anyone any question. They can answer honestly or use their PASS."], "Deep Conversation": ["What is something you're carrying right now that the rest of us may not realize?", "When do you feel most alone?", "What is something you're afraid our family misunderstands about you?", "What's something you've wanted to tell us but haven't known how to say?", "What do you wish people asked you about?", "When do you feel most understood by this family?", "When do you feel least understood?", "What's something you pretend doesn't bother you but actually does?", "What's something you're harder on yourself about than anyone realizes?", "What's something you're afraid of disappointing this family about?", "What is something you need more of from us?", "What is something you need less of from us?", "When have I hurt you without realizing it?", "What's something you've forgiven someone here for but never told them?", "Is there something you think we need to forgive each other for?", "What's one apology you wish you'd received?", "What's one apology you think you owe someone here?", "What's something about your childhood you hope you always remember?", "What's something about your childhood you want to leave behind?", "What do you think each of us needs most right now?", "What's something you're scared will change as we all get older?", "If something happened to you tomorrow, what would you want this family to know?", "What's something you love about someone here that you don't say enough?", "Look at one person here and finish: \"One thing I never want you to doubt is...\""]};
-const STORE_KEY = "betweenUsDecksV1";
-const USED_KEY = "betweenUsUsedV1";
-let decks = JSON.parse(localStorage.getItem(STORE_KEY) || "null") || structuredClone(ORIGINAL);
-let used = JSON.parse(localStorage.getItem(USED_KEY) || "{}");
-let currentDeck = null;
-let currentIndex = null;
-
-const emojiMap = {
-  "Dad ↔ Daughter":"👨‍👧","Dad ↔ Son":"👨‍👦","Sibling ↔ Sibling":"🧑‍🤝‍🧑",
-  "Whole Family":"🏠","Funny / Wildcard":"😂","Deep Conversation":"❤️"
-};
-
-function save() {
-  localStorage.setItem(STORE_KEY, JSON.stringify(decks));
-  localStorage.setItem(USED_KEY, JSON.stringify(used));
-}
-function toast(msg) {
-  const t=document.getElementById("toast"); t.textContent=msg; t.classList.add("show");
-  setTimeout(()=>t.classList.remove("show"),1400);
-  if(navigator.vibrate) navigator.vibrate(12);
-}
-function renderDecks() {
-  const grid=document.getElementById("deckgrid"); grid.innerHTML="";
-  Object.keys(decks).forEach(name=>{
-    const b=document.createElement("button"); b.className="deck";
-    const count=decks[name].length;
-    b.innerHTML=`<div class="emoji">${emojiMap[name]||"🎴"}</div><div><div class="name">${name}</div><div class="count">${count} cards</div></div>`;
-    b.onclick=()=>startDeck(name); grid.appendChild(b);
-  });
-}
-function startDeck(name) {
-  currentDeck=name;
-  used[name]=used[name]||[];
-  show("play"); drawCard();
-}
-function show(id) {
-  document.querySelectorAll(".view").forEach(v=>v.classList.remove("active"));
-  document.getElementById(id).classList.add("active");
-}
-function chooseIndex() {
-  const arr=decks[currentDeck]||[];
-  if(!arr.length) return null;
-  const available=arr.map((_,i)=>i).filter(i=>!used[currentDeck].includes(i));
-  if(!available.length) { used[currentDeck]=[]; toast("Deck reshuffled"); return Math.floor(Math.random()*arr.length); }
-  return available[Math.floor(Math.random()*available.length)];
-}
-function drawCard() {
-  const card=document.getElementById("card");
-  card.classList.add("out");
-  setTimeout(()=>{
-    currentIndex=chooseIndex();
-    if(currentIndex===null) {
-      document.getElementById("question").textContent="This deck has no cards yet.";
-      document.getElementById("cat").textContent=currentDeck;
-      document.getElementById("progress").textContent="0 cards";
-    } else {
-      if(!used[currentDeck].includes(currentIndex)) used[currentDeck].push(currentIndex);
-      save();
-      document.getElementById("cat").textContent=currentDeck;
-      document.getElementById("question").textContent=decks[currentDeck][currentIndex];
-      document.getElementById("cardnum").textContent=`CARD ${used[currentDeck].length}`;
-      document.getElementById("progress").textContent=`${used[currentDeck].length} / ${decks[currentDeck].length} seen`;
-      document.getElementById("promptnote").textContent=currentDeck==="Deep Conversation" ? "You may pass without explaining why." : "Listen first. Respond second.";
-    }
-    card.classList.remove("out");
-  },180);
-}
-document.getElementById("nextBtn").onclick=drawCard;
-document.getElementById("passBtn").onclick=()=>{toast("Passed. No explanation needed.");drawCard();};
-document.getElementById("backBtn").onclick=()=>{show("home");renderDecks();};
-document.querySelectorAll("[data-special]").forEach(b=>b.onclick=()=>{
-  const k=b.dataset.special;
-  const rules={
-    "Flip It":"FLIP IT: The person who drew the question answers it about the other person.",
-    "Prove It":"PROVE IT: Give a specific memory or example that explains your answer.",
-    "Say More":"SAY MORE: Invite them to go deeper. They may elaborate or pass."
-  };
-  document.getElementById("specialRule").textContent=rules[k]; toast(k);
-});
-
-const manager=document.getElementById("manager"), manageDeck=document.getElementById("manageDeck");
-function openManager() {manager.classList.add("open"); refreshManager();}
-function refreshManager() {
-  const selected=manageDeck.value || Object.keys(decks)[0];
-  manageDeck.innerHTML="";
-  Object.keys(decks).forEach(name=>{
-    const o=document.createElement("option"); o.value=name;o.textContent=`${name} (${decks[name].length})`;manageDeck.appendChild(o);
-  });
-  manageDeck.value=decks[selected]?selected:Object.keys(decks)[0];
-  renderCardList();
-}
-function renderCardList() {
-  const name=manageDeck.value, list=document.getElementById("cardList"); list.innerHTML="";
-  (decks[name]||[]).forEach((text,i)=>{
-    const r=document.createElement("div"); r.className="row";
-    r.innerHTML=`<div class="rowtext"></div><div class="rowactions"><button class="small edit">Edit</button><button class="small danger del">Delete</button></div>`;
-    r.querySelector(".rowtext").textContent=text;
-    r.querySelector(".edit").onclick=()=>{
-      const next=prompt("Edit card:",decks[name][i]);
-      if(next!==null && next.trim()) {decks[name][i]=next.trim();save();renderCardList();toast("Card updated");}
-    };
-    r.querySelector(".del").onclick=()=>{
-      if(confirm("Delete this card?")) {decks[name].splice(i,1);used[name]=[];save();refreshManager();toast("Card deleted");}
-    };
-    list.appendChild(r);
-  });
-}
-document.getElementById("settingsBtn").onclick=openManager;
-document.getElementById("closeManager").onclick=()=>manager.classList.remove("open");
-manageDeck.onchange=renderCardList;
-document.getElementById("addCard").onclick=()=>{
-  const text=document.getElementById("newCard").value.trim(), name=manageDeck.value;
-  if(!text)return toast("Write a question first");
-  decks[name].push(text);document.getElementById("newCard").value="";save();refreshManager();toast("Card added");
-};
-document.getElementById("newCategory").onclick=()=>{
-  const name=prompt("New category name:");
-  if(!name||!name.trim())return;
-  const n=name.trim(); if(decks[n])return toast("That category already exists");
-  decks[n]=[];used[n]=[];save();refreshManager();manageDeck.value=n;renderCardList();toast("Category created");
-};
-document.getElementById("resetDeck").onclick=()=>{
-  const name=manageDeck.value;
-  if(!ORIGINAL[name]) return toast("Custom decks cannot be reset");
-  if(confirm(`Reset "${name}" to its original cards?`)) {
-    decks[name]=structuredClone(ORIGINAL[name]);used[name]=[];save();refreshManager();toast("Deck reset");
-  }
-};
-document.getElementById("exportBtn").onclick=()=>{
-  const blob=new Blob([JSON.stringify(decks,null,2)],{type:"application/json"});
-  const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="between-us-cards.json";a.click();URL.revokeObjectURL(a.href);
-};
-document.getElementById("importBtn").onclick=()=>document.getElementById("importFile").click();
-document.getElementById("importFile").onchange=async e=>{
-  const f=e.target.files[0]; if(!f)return;
-  try {
-    const obj=JSON.parse(await f.text());
-    if(typeof obj!=="object"||Array.isArray(obj))throw new Error();
-    decks=obj;used={};save();refreshManager();renderDecks();toast("Decks imported");
-  } catch {alert("That file does not look like a valid Between Us deck export.");}
-  e.target.value="";
-};
-manager.addEventListener("click",e=>{if(e.target===manager)manager.classList.remove("open");});
-renderDecks();
-
-if("serviceWorker" in navigator) navigator.serviceWorker.register("./sw.js").catch(()=>{});
-</script>
-</body>
-</html>
+const STORE_KEY="betweenUsDecksV1", USED_KEY="betweenUsUsedV3", SEEN_INTRO="betweenUsIntroSeenV1";
+let decks=JSON.parse(localStorage.getItem(STORE_KEY)||"null")||structuredClone(ORIGINAL),used=JSON.parse(localStorage.getItem(USED_KEY)||"{}"),currentDeck=null,currentIndex=null,mode="deck",sessionStep=0;
+const deckMeta={
+"Dad ↔ Daughter":{cls:"daughter",color:"#f7d8ca",icon:`<svg viewBox="0 0 48 48"><circle cx="17" cy="13" r="5"/><circle cx="31" cy="13" r="4.5"/><path d="M10 37c1-9 3-14 7-14s6 5 7 14M24 37c1-8 3-13 7-13s6 5 7 13"/><path d="M17 23v14M31 24v13"/></svg>`},
+"Dad ↔ Son":{cls:"son",color:"#cfe3dc",icon:`<svg viewBox="0 0 48 48"><circle cx="17" cy="13" r="5"/><circle cx="31" cy="13" r="4.5"/><path d="M10 37c1-9 3-14 7-14s6 5 7 14M24 37c1-8 3-13 7-13s6 5 7 13"/><path d="M17 23v14M31 24v13"/><path d="M13 10h8M28 10h6"/></svg>`},
+"Sibling ↔ Sibling":{cls:"siblings",color:"#d7e8eb",icon:`<svg viewBox="0 0 48 48"><circle cx="16" cy="14" r="4.5"/><circle cx="32" cy="14" r="4.5"/><path d="M10 37c1-8 3-13 6-13s5 5 6 13M26 37c1-8 3-13 6-13s5 5 6 13"/><path d="M21 28c2 2 4 3 6 0"/></svg>`},
+"Whole Family":{cls:"family",color:"#f4e3aa",icon:`<svg viewBox="0 0 48 48"><path d="M7 23 24 9l17 14"/><path d="M11 21v18h26V21"/><rect x="20" y="28" width="8" height="11"/><path d="M16 26h1M31 26h1"/></svg>`},
+"Funny / Wildcard":{cls:"funny",color:"#ddd3e9",icon:`<svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="16"/><path d="M17 20h1M30 20h1M16 28c5 6 11 6 16 0"/><path d="M13 17c2-3 5-5 8-6M35 17c-2-3-5-5-8-6"/></svg>`},
+"Deep Conversation":{cls:"deep",color:"#efc7c0",icon:`<svg viewBox="0 0 48 48"><path d="M24 39S8 30 8 19c0-6 7-9 12-4l4 4 4-4c5-5 12-2 12 4 0 11-16 20-16 20Z"/></svg>`}};
+function save(){localStorage.setItem(STORE_KEY,JSON.stringify(decks));localStorage.setItem(USED_KEY,JSON.stringify(used))}function toast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),1400);if(navigator.vibrate)navigator.vibrate(12)}
+function renderDecks(){const grid=document.getElementById("deckgrid");grid.innerHTML="";Object.keys(decks).forEach(name=>{const meta=deckMeta[name]||{cls:"family",icon:`<svg viewBox="0 0 48 48"><rect x="9" y="10" width="30" height="28" rx="4"/><path d="M15 18h18M15 24h18M15 30h12"/></svg>`};const b=document.createElement("button");b.className=`deck ${meta.cls}`;b.innerHTML=`<div class="deckicon">${meta.icon}</div><div><div class="name">${name}</div><div class="count">${decks[name].length} cards</div></div>`;b.onclick=()=>startDeck(name);grid.appendChild(b)})}
+function show(id){document.querySelectorAll(".view").forEach(v=>v.classList.remove("active"));document.getElementById(id).classList.add("active")}
+function startDeck(name){mode="deck";currentDeck=name;used[name]=used[name]||[];sessionStep=0;document.getElementById("sessionbar").classList.remove("show");show("play");drawCard()}function startMix(){mode="mix";currentDeck=null;sessionStep=0;document.getElementById("sessionbar").classList.remove("show");show("play");drawCard()}function startSession(){mode="session";currentDeck=null;sessionStep=0;document.getElementById("sessionbar").classList.add("show");show("play");drawCard()}
+function availableFrom(name){const arr=decks[name]||[];used[name]=used[name]||[];let a=arr.map((_,i)=>i).filter(i=>!used[name].includes(i));if(!a.length&&arr.length){used[name]=[];a=arr.map((_,i)=>i)}return a}function randomFromDeck(name){const arr=decks[name]||[],a=availableFrom(name);if(!a.length)return null;const idx=a[Math.floor(Math.random()*a.length)];used[name].push(idx);return{deck:name,index:idx,text:arr[idx]}}function randomFromNames(names){const v=names.filter(n=>(decks[n]||[]).length);if(!v.length)return null;return randomFromDeck(v[Math.floor(Math.random()*v.length)])}
+function nextSessionCard(){const stages=[{name:"light",decks:["Funny / Wildcard","Whole Family"],count:3},{name:"meaningful",decks:["Dad ↔ Daughter","Dad ↔ Son","Sibling ↔ Sibling","Whole Family"],count:5},{name:"deep",decks:["Deep Conversation"],count:999}];let total=0,stage=stages[0];for(const s of stages){total+=s.count;if(sessionStep<total){stage=s;break}}document.querySelectorAll(".stage").forEach(el=>el.classList.toggle("active",el.dataset.stage===stage.name));sessionStep++;return randomFromNames(stage.decks)}function pickCard(){if(mode==="deck")return randomFromDeck(currentDeck);if(mode==="mix")return randomFromNames(Object.keys(decks));return nextSessionCard()}
+function drawCard(){const card=document.getElementById("card");card.classList.remove("out");void card.offsetWidth;card.classList.add("out");setTimeout(()=>{const pick=pickCard();card.classList.remove("out");card.style.animation="none";void card.offsetWidth;card.style.animation="";if(!pick){document.getElementById("question").textContent="No cards are available yet.";return}currentDeck=pick.deck;currentIndex=pick.index;save();card.style.background=(deckMeta[pick.deck]||{color:"#fffdf8"}).color;document.getElementById("cat").textContent=mode==="mix"?`Mix It Up • ${pick.deck}`:mode==="session"?`Session • ${pick.deck}`:pick.deck;document.getElementById("question").textContent=pick.text;document.getElementById("cardnum").textContent=`CARD ${used[pick.deck].length}`;document.getElementById("progress").textContent=mode==="deck"?`${used[pick.deck].length} / ${decks[pick.deck].length} seen`:mode==="mix"?"Mixed deck":`Session card ${sessionStep}`;document.getElementById("promptnote").textContent=pick.deck==="Deep Conversation"?"You may pass without explaining why.":"Listen first. Respond second."},190)}
+document.getElementById("nextBtn").onclick=drawCard;document.getElementById("passBtn").onclick=()=>{toast("Passed. No explanation needed.");drawCard()};document.getElementById("backBtn").onclick=()=>{show("home");renderDecks()};document.getElementById("mixBtn").onclick=startMix;document.getElementById("sessionBtn").onclick=startSession;
+document.querySelectorAll("[data-special]").forEach(b=>b.onclick=()=>{const rules={"Flip It":"FLIP IT: Answer the question about the other person instead.","Prove It":"PROVE IT: Give a specific memory or example that explains your answer.","Say More":"SAY MORE: Invite them to go deeper. They may elaborate or pass."};document.getElementById("specialRule").textContent=rules[b.dataset.special];toast(b.dataset.special)});
+const manager=document.getElementById("manager"),manageDeck=document.getElementById("manageDeck");function openManager(){manager.classList.add("open");refreshManager()}function refreshManager(){const selected=manageDeck.value||Object.keys(decks)[0];manageDeck.innerHTML="";Object.keys(decks).forEach(name=>{const o=document.createElement("option");o.value=name;o.textContent=`${name} (${decks[name].length})`;manageDeck.appendChild(o)});manageDeck.value=decks[selected]?selected:Object.keys(decks)[0];renderCardList()}function renderCardList(){const name=manageDeck.value,list=document.getElementById("cardList");list.innerHTML="";(decks[name]||[]).forEach((text,i)=>{const r=document.createElement("div");r.className="row";r.innerHTML=`<div class="rowtext"></div><div class="rowactions"><button class="small edit">Edit</button><button class="small danger del">Delete</button></div>`;r.querySelector(".rowtext").textContent=text;r.querySelector(".edit").onclick=()=>{const next=prompt("Edit card:",decks[name][i]);if(next!==null&&next.trim()){decks[name][i]=next.trim();save();renderCardList();toast("Card updated")}};r.querySelector(".del").onclick=()=>{if(confirm("Delete this card?")){decks[name].splice(i,1);used[name]=[];save();refreshManager();renderDecks();toast("Card deleted")}};list.appendChild(r)})}
+document.getElementById("settingsBtn").onclick=openManager;document.getElementById("closeManager").onclick=()=>manager.classList.remove("open");manageDeck.onchange=renderCardList;document.getElementById("addCard").onclick=()=>{const text=document.getElementById("newCard").value.trim(),name=manageDeck.value;if(!text)return toast("Write a question first");decks[name].push(text);document.getElementById("newCard").value="";save();refreshManager();renderDecks();toast("Card added")};document.getElementById("newCategory").onclick=()=>{const name=prompt("New category name:");if(!name||!name.trim())return;const n=name.trim();if(decks[n])return toast("That category already exists");decks[n]=[];used[n]=[];save();refreshManager();manageDeck.value=n;renderCardList();renderDecks();toast("Category created")};document.getElementById("resetDeck").onclick=()=>{const name=manageDeck.value;if(!ORIGINAL[name])return toast("Custom decks cannot be reset");if(confirm(`Reset "${name}" to its original cards?`)){decks[name]=structuredClone(ORIGINAL[name]);used[name]=[];save();refreshManager();renderDecks();toast("Deck reset")}};document.getElementById("exportBtn").onclick=()=>{const blob=new Blob([JSON.stringify(decks,null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="between-us-cards.json";a.click();URL.revokeObjectURL(a.href)};document.getElementById("importBtn").onclick=()=>document.getElementById("importFile").click();document.getElementById("importFile").onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const obj=JSON.parse(await f.text());if(typeof obj!=="object"||Array.isArray(obj))throw new Error();decks=obj;used={};save();refreshManager();renderDecks();toast("Decks imported")}catch{alert("That file does not look like a valid Between Us deck export.")}e.target.value=""};manager.addEventListener("click",e=>{if(e.target===manager)manager.classList.remove("open")});const onboard=document.getElementById("onboard");document.getElementById("gotIt").onclick=()=>{localStorage.setItem(SEEN_INTRO,"1");onboard.classList.remove("open")};if(!localStorage.getItem(SEEN_INTRO))onboard.classList.add("open");renderDecks();if("serviceWorker" in navigator)navigator.serviceWorker.register("./sw.js").catch(()=>{});
+</script></body></html>
